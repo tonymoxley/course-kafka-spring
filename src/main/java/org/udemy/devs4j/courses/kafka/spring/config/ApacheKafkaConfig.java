@@ -19,7 +19,7 @@ import java.util.Map;
  * @version 1.0
  */
 @Configuration
-public class KafkaConfig {
+public class ApacheKafkaConfig {
 
     /**
      * Este método crea un hash map con las configuraciones del consumer que se utilizará para leer los mensajes de kafka

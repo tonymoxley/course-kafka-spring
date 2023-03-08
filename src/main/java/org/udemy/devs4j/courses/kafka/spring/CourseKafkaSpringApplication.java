@@ -19,7 +19,7 @@ public class CourseKafkaSpringApplication {
 	 * Este método se utiliza para interceptar y leer los mensajes enviados por un producer de kafka. {@link KafkaListener}
 	 * @param message valor enviado al topic de kafka
 	 */
-	@KafkaListener
+	@KafkaListener(topics = "devs4j-topic", groupId = "devs4j-group")
 	public void listen(final String message) {
 		log.info("message received: {}", message);
 	}

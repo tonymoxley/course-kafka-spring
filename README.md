@@ -21,14 +21,42 @@ public class ApacheKafkaConfig {
     public Map<String, Object> consumerProperties() {
         final Map<String, Object> properties = new HashMap<>();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "topic-demo-group");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "devs4j-group");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     }
 }
 ```
 ##### Nota: solo se debera editar el BOOTSTRAP_SERVERS_CONFIG y GROUP_ID_CONFIG
-
+### Ejecución de kafka con docker
+Ejecutar apache kafka desde docker desktop o desde la terminal, posterior a esto ejecutar el siguiente comando 
+para entrar al shell de kafka:
+```shell
+docker exec -it kafka /bin/sh
+```
+Al ingresar al shell se navegara hacia la carpeta de la version de kafka instalado-> bin/opt/kafka_x.xx-x.x.x
+, y se ejecutara el siguiente comando para crear el topic:
+```shell
+bin/kafka-topics.sh --bootstrap-server  localhost:9092 --create --topic devs4j-topic --partitions 5 --replication-factor 1
+```
+Para listar los topics creados se utiliza el siguiente comando:
+```shell
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+```
+Para ejecutar el producer desde consola y mandar mensajes al topic creado ejecutar:
+```shell
+bin/kafka-console-producer.sh --topic devs4j-topic --bootstrap-server localhost:9092
+```
+Para ejecutar un consumer desde consola y recibir los mensajes del topic creado ejecutar:
+```shell
+bin/kafka-console-consumer.sh --topic devs4j-topic --from-beginning --bootstrap-server localhost:9092
+```
+### Ejecución del proyecto
+Si todo compila correctamente, seleccionar el proyecto desde el IDE hacer clic secundario > ejecutar como proyecto spring boot,
+o mediante la terminal-> navegar hacia la carpeta del proyecto y ejecutar el comando:
+```shell
+mvn spring-boot:run
+```
 ### :hammer_and_wrench: Languages and Tools :
 <div>
 <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-original-wordmark.svg" title="Java" alt="Java" width="40" height="40"/>&nbsp;
